@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promoción de Vida Saludable</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --psych-color: #9b59b6;
+            --phys-color: #2ecc71;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #3498db);
+            color: white;
+            text-align: center;
+            padding: 3.5rem 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            color: white;
+            padding: 1.8rem;
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .psych-header { background-color: var(--psych-color); }
+        .phys-header { background-color: var(--phys-color); }
+
+        .card-content {
+            padding: 2.2rem;
+            flex-grow: 1;
+        }
+
+        h3 {
+            margin-top: 1.8rem;
+            margin-bottom: 0.6rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.4rem;
+            font-size: 1.3rem;
+        }
+
+        h3:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #444;
+        }
+
+        li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .psych-content li::before { color: var(--psych-color); }
+        .phys-content li::before { color: var(--phys-color); }
+
+        /* Estilos de las Herramientas Interactivas */
+        .interactive-box {
+            background-color: #f1f5f9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .interactive-box h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Estilos Formulario IMC */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-phys { background-color: var(--phys-color); }
+        .btn-phys:hover { background-color: #27ae60; }
+        
+        .btn-psych { background-color: var(--psych-color); }
+        .btn-psych:hover { background-color: #8e44ad; }
+
+        .result {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Estilos del Violentómetro */
+        .v-display {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            color: white;
+            background-color: #7f8c8d;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 5rem;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Promoción de Vida Saludable</h1>
+        <p>Hacia un equilibrio pleno entre mente y cuerpo</p>
+    </header>
+
+    <main class="container">
+        
+        <section class="card">
+            <div class="card-header psych-header">
+                Salud Psicológica
+            </div>
+            <div class="card-content psych-content">
+                <h3>Valores y Erradicación de la Violencia</h3>
+                <p>La salud mental comienza construyendo entornos armónicos. Fortalecer valores como la empatía, el respeto mutuo y la equidad nos permite identificar conductas de riesgo y erradicar la violencia en nuestras aulas y hogares.</p>
+                
+                <h3>El Violentómetro</h3>
+                <p>Es una herramienta pedagógica diseñada para visualizar y concientizar sobre las manifestaciones de violencia que a menudo se normalizan u ocultan en la vida cotidiana. Se divide en tres niveles de alerta gradual.</p>
+                
+                <div class="interactive-box">
+                    <h4>Simulador de Alerta Temprana</h4>
+                    <div id="v-screen" class="v-display">Haz clic abajo para evaluar el nivel</div>
+                    <button class="btn-psych" onclick="simularViolentometro()">Simular Nivel de Alerta</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header phys-header">
+                Salud Física
+            </div>
+            <div class="card-content phys-content">
+                <h3>Prevención y Hábitos de Consumo</h3>
+                <ul>
+                    <li><strong>Bebidas Azucaradas:</strong> El consumo excesivo está directamente ligado al desarrollo de diabetes tipo 2, sobrepeso y caries dentales. Priorizar el agua simple es el primer paso.</li>
+                    <li><strong>Alimentos Procesados:</strong> Productos ultraprocesados que contienen altos niveles de sodio, grasas trans y azúcares refinados, los cuales dañan la salud cardiovascular a largo plazo.</li>
+                </ul>
+
+                <h3>Monitoreo del Índice de Masa Corporal (IMC)</h3>
+                <p>El IMC es un indicador confiable utilizado para identificar categorías de peso (Bajo peso, Peso saludable, Sobrepeso y Obesidad) relacionando la masa corporal con la estatura.</p>
+                
+                <div class="interactive-box">
+                    <h4>Calculadora de IMC Integrada</h4>
+                    <div class="form-group">
+                        <label for="peso">Peso (kg):</label>
+                        <input type="number" id="peso" placeholder="Ej. 65" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="estatura">Estatura (metros):</label>
+                        <input type="number" id="estatura" placeholder="Ej. 1.70" step="0.01">
+                    </div>
+                    <button class="btn-phys" onclick="calcularIMC()">Calcular IMC</button>
+                    <div id="imc-result" class="result"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Plataforma Interactiva de Vida Saludable. Construido para la comunidad educativa.</p>
+    </footer>
+
+    <script>
+        // LÓGICA DE LA CALCULADORA DE IMC
+        function calcularIMC() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const estatura = parseFloat(document.getElementById('estatura').value);
+            const rBox = document.getElementById('imc-result');
+
+            if (!peso || !estatura || peso <= 0 || estatura <= 0) {
+                rBox.style.display = 'block';
+                rBox.style.backgroundColor = '#f8d7da';
+                rBox.style.color = '#721c24';
+                rBox.innerHTML = 'Por favor, ingresa valores válidos.';
+                return;
+            }
+
+            const imc = (peso / (estatura * estatura)).toFixed(1);
+            let clasificacion = "";
+            let color = "";
+            let text_color = "#fff";
+
+            if (imc < 18.5) {
+                clasificacion = "Bajo peso";
+                color = "#3498db";
+            } else if (imc >= 18.5 && imc < 24.9) {
+                clasificacion = "Peso saludable";
+                color = "#2ecc71";
+            } else if (imc >= 25 && imc < 29.9) {
+                clasificacion = "Sobrepeso";
+                color = "#f39c12";
+            } else {
+                clasificacion = "Obesidad";
+                color = "#e74c3c";
+            }
+
+            rBox.style.display = 'block';
+            rBox.style.backgroundColor = color;
+            rBox.style.color = text_color;
+            rBox.innerHTML = `Tu IMC es ${imc} (${clasificacion})`;
+        }
+
+        // LÓGICA DE SIMULACIÓN DEL VIOLENTÓMETRO
+        let faseViolentometro = 0;
+        function simularViolentometro() {
+            const vScreen = document.getElementById('v-screen');
+            const alertas = [
+                { texto: "Nivel 1: ¡Cuidado! Las bromas hirientes, chantajes o celos se normalizan, pero YA son violencia.", color: "#f1c40f" },
+                { texto: "Nivel 2: ¡Reacciona! Destruir bienes, manosear, golpear 'jugando' o aislar requieren denunciar.", color: "#e67e22" },
+                { texto: "Nivel 3: ¡Pide ayuda! Amenazas de muerte, abuso sexual o agresiones físicas ponen en riesgo tu vida.", color: "#e74c3c" }
+            ];
+
+            vScreen.textContent = alertas[faseViolentometro].texto;
+            vScreen.style.backgroundColor = alertas[faseViolentometro].color;
+            vScreen.style.color = faseViolentometro === 0 ? '#333' : '#fff';
+
+            // Ciclar entre los 3 niveles al presionar el botón
+            faseViolentometro = (faseViolentometro + 1) % alertas.length;
+        }
+    </script>
+</body>
+</html>
